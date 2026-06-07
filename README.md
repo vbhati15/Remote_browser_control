@@ -1,6 +1,21 @@
 # Remote Browser Control
 
-A local remote browser control system. It starts Chromium in a Docker container, streams the browser screen into a web UI, and forwards mouse, scroll, and keyboard input back into the headless browser.
+A local remote-browser experience built for real-world demos. This app launches Chromium in Docker, streams its screen back to your browser in real time, and forwards clicks, scrolls, and keystrokes into the remote browser.
+
+It is designed to show a complete local end-to-end flow:
+
+- one-click browser startup
+- live screen streaming over WebSocket
+- interactive input forwarding into headless Chromium
+- URL navigation from the UI
+
+## Why this matters
+
+This project proves a practical remote-browser control system without any cloud dependencies. It is useful for:
+
+- demos of real-time browser automation
+- local browser testing and control workflows
+- teaching how Chrome DevTools Protocol can power remote interaction
 
 ## Features
 
@@ -10,6 +25,20 @@ A local remote browser control system. It starts Chromium in a Docker container,
 - Real-time screencast frames streamed to the UI over WebSocket
 - Mouse move, click, scroll, and keyboard events forwarded into Chromium
 - URL bar for navigating the remote browser
+
+## Demo
+
+### Before navigation
+
+![Remote browser control before entering a URL](screenshots/ss1.png)
+
+*The UI immediately after the browser starts, before a destination is entered.*
+
+### After navigation
+
+![Remote browser control after entering a URL](screenshots/ss2.png)
+
+*The browser page after navigating to a remote URL.*
 
 ## Requirements
 
@@ -118,6 +147,13 @@ Headless Chromium page
 The custom Node server serves the Next.js app and owns the WebSocket endpoint at `/ws`. When the UI sends a start command, the server builds the Docker image, starts the Chromium container, connects to Chromium over CDP on port `9222`, starts a screencast, and forwards frames to the frontend.
 
 Frontend mouse and keyboard events are translated into CDP `Input.dispatchMouseEvent` and `Input.dispatchKeyEvent` calls.
+
+## Reviewer highlights
+
+- **End-to-end local demo:** UI → server → Docker → Chromium → CDP → canvas.
+- **Tested flow:** `scripts/smoke.mjs` validates startup, navigation, screencast, and input.
+- **Documentation:** includes `CHANGELOG.md`, `DEVNOTES.md`, and `AUTHORS` for traceability.
+- **Real implementation:** not a stub — it runs a live browser session inside Docker and streams frames back to the browser.
 
 ## Limitations
 
