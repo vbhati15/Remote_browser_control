@@ -1,0 +1,33 @@
+{
+  "name": "remote-browser-control",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "tsx server/index.ts",
+    "build": "next build",
+    "start": "cross-env NODE_ENV=production tsx server/index.ts",
+    "typecheck": "tsc --noEmit",
+    "smoke": "node scripts/smoke.mjs",
+    "browser:build": "docker build -f docker/browser.Dockerfile -t bld-remote-browser:latest .",
+    "browser:stop": "docker rm -f bld-remote-browser"
+  },
+  "dependencies": {
+    "@types/node": "^20.14.10",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "chrome-remote-interface": "^0.33.3",
+    "cross-env": "^7.0.3",
+    "next": "^16.2.7",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3",
+    "ws": "^8.17.1"
+  },
+  "devDependencies": {
+    "@types/chrome-remote-interface": "^0.31.14",
+    "@types/ws": "^8.5.10",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.2.7"
+  }
+}
