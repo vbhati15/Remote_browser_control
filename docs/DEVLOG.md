@@ -10,5 +10,14 @@ This document records the main steps taken while building the project.
 - Added Docker tooling to build and run Chromium in a local container.
 - Integrated Chrome DevTools Protocol to start screencast and forward input events.
 - Added an automated smoke test to validate startup, navigation, streaming, and input.
-- Added documentation files: `CHANGELOG.md`, `AUTHORS`, `DEVNOTES.md`, and `README.md`.
+- Added documentation files: `CHANGELOG.md`, `DEVNOTES.md`, and `README.md`.
 - Added a GitHub Actions workflow to run the smoke test automatically on push.
+
+## 2026-06-08 (Updates)
+
+- Fixed `.gitignore` encoding issue (literal escape sequences replaced with proper newlines).
+- Added refresh button to UI for page reload functionality.
+- Implemented recent URL history tracking with localStorage persistence.
+- Updated UI styling: flex-based control layout and improved button sizing.
+- Enhanced README with clearer project overview and reviewer highlights.
+- Improved documentation structure with DEVLOG, DEVNOTES, and CHANGELOG.
