@@ -18,4 +18,14 @@ jobs:
         with:
           node-version: '20'
       - run: npm ci
+      - run: |
+          npm run start &
+          printf 'Waiting for server to start...\n'
+          for i in {1..20}; do
+            if curl -sf http://127.0.0.1:3000 >/dev/null; then
+              printf 'Server started\n'
+              break
+            fi
+            sleep 1
+          done
       - run: npm run smoke
