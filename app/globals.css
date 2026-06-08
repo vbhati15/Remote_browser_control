@@ -185,6 +185,63 @@ input {
   font-size: 14px;
 }
 
+.recentUrlsContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.recentUrlsButton {
+  min-height: 32px;
+  border: 1px solid #aeb9c7;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #253142;
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.recentUrlsButton:hover {
+  background: #f3f5f9;
+  border-color: #2563eb;
+}
+
+.recentUrls {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  border: 1px solid #aeb9c7;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 4px 8px rgba(24, 32, 43, 0.1);
+}
+
+.recentUrls button {
+  text-align: left;
+  padding: 8px 12px;
+  min-height: auto;
+  height: auto;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: #f8f9fb;
+  color: #253142;
+  font-size: 13px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.recentUrls button:hover {
+  background: #e0e7f1;
+  border-color: #2563eb;
+}
+
 @media (max-width: 760px) {
   .shell {
     padding: 12px;

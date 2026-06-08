@@ -17,6 +17,7 @@ export default function Home() {
   const [connected, setConnected] = useState(false);
   const [hasFrame, setHasFrame] = useState(false);
   const [controlSocketUrl, setControlSocketUrl] = useState("");
+  const [showRecentUrls, setShowRecentUrls] = useState(false);
 
   const canControl = status === "ready" && connected;
 
@@ -151,6 +152,7 @@ export default function Home() {
     setUrl(recentUrl);
     send({ type: "navigate", url: recentUrl });
     saveRecentUrl(recentUrl);
+    setShowRecentUrls(false);
   }
 
   function canvasPoint(event: MouseEvent<HTMLCanvasElement> | WheelEvent<HTMLCanvasElement>) {
@@ -230,15 +232,23 @@ export default function Home() {
           </button>
         </form>
         {recentUrls.length > 0 && (
-          <div className="recentUrls">
-            <span>Recent URLs:</span>
-            <div className="recentList">
-              {recentUrls.map((recentUrl) => (
-                <button key={recentUrl} type="button" onClick={() => revisitUrl(recentUrl)}>
-                  {recentUrl}
-                </button>
-              ))}
-            </div>
+          <div className="recentUrlsContainer">
+            <button
+              type="button"
+              className="recentUrlsButton"
+              onClick={() => setShowRecentUrls(!showRecentUrls)}
+            >
+              Recent URLs ({recentUrls.length})
+            </button>
+            {showRecentUrls && (
+              <div className="recentUrls">
+                {recentUrls.map((recentUrl) => (
+                  <button key={recentUrl} type="button" onClick={() => revisitUrl(recentUrl)}>
+                    {recentUrl}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </section>
