@@ -13,6 +13,7 @@ export default function Home() {
   const [message, setMessage] = useState("Ready to start a local Chromium container.");
   const [url, setUrl] = useState("https://example.com");
   const [currentUrl, setCurrentUrl] = useState("about:blank");
+  const [recentUrls, setRecentUrls] = useState<string[]>([]);
   const [connected, setConnected] = useState(false);
   const [hasFrame, setHasFrame] = useState(false);
   const [controlSocketUrl, setControlSocketUrl] = useState("");
@@ -81,6 +82,28 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    const stored = window.localStorage.getItem("recentUrls");
+    if (stored) {
+      try {
+        setRecentUrls(JSON.parse(stored));
+      } catch {
+        // Ignore malformed storage data.
+      }
+    }
+  }, []);
+
+  function saveRecentUrl(nextUrl: string) {
+    const trimmed = nextUrl.trim();
+    if (!trimmed) return;
+
+    setRecentUrls((urls) => {
+      const updated = [trimmed, ...urls.filter((item) => item !== trimmed)].slice(0, 5);
+      window.localStorage.setItem("recentUrls", JSON.stringify(updated));
+      return updated;
+    });
+  }
+
   const statusLabel = useMemo(() => {
     if (!connected) return "Disconnected";
     return status.charAt(0).toUpperCase() + status.slice(1);
@@ -114,9 +137,20 @@ export default function Home() {
     send({ type: "stop" });
   }
 
+  function refreshBrowser() {
+    send({ type: "refresh" });
+  }
+
   function navigate(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     send({ type: "navigate", url });
+    saveRecentUrl(url);
+  }
+
+  function revisitUrl(recentUrl: string) {
+    setUrl(recentUrl);
+    send({ type: "navigate", url: recentUrl });
+    saveRecentUrl(recentUrl);
   }
 
   function canvasPoint(event: MouseEvent<HTMLCanvasElement> | WheelEvent<HTMLCanvasElement>) {
@@ -186,12 +220,27 @@ export default function Home() {
         <button className="secondary" onClick={stopBrowser} disabled={!connected || status === "idle" || status === "stopping"}>
           Stop
         </button>
+        <button className="secondary refreshButton" onClick={refreshBrowser} disabled={!canControl}>
+          Refresh
+        </button>
         <form onSubmit={navigate}>
           <input value={url} onChange={(event) => setUrl(event.target.value)} aria-label="URL" />
           <button type="submit" disabled={!canControl}>
             Go
           </button>
         </form>
+        {recentUrls.length > 0 && (
+          <div className="recentUrls">
+            <span>Recent URLs:</span>
+            <div className="recentList">
+              {recentUrls.map((recentUrl) => (
+                <button key={recentUrl} type="button" onClick={() => revisitUrl(recentUrl)}>
+                  {recentUrl}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
 
       <section className="viewportWrap">

@@ -25,6 +25,7 @@ This project proves a practical remote-browser control system without any cloud 
 - Real-time screencast frames streamed to the UI over WebSocket
 - Mouse move, click, scroll, and keyboard events forwarded into Chromium
 - URL bar for navigating the remote browser
+- Refresh control and recent URL history for faster workflows
 
 ## Demo
 

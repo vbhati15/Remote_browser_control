@@ -1,6 +1,7 @@
 export type ClientMessage =
   | { type: "start" }
   | { type: "stop" }
+  | { type: "refresh" }
   | { type: "navigate"; url: string }
   | { type: "mouse"; eventType: "mouseMoved" | "mousePressed" | "mouseReleased"; x: number; y: number; button?: "left" | "right" | "middle"; clickCount?: number }
   | { type: "wheel"; x: number; y: number; deltaX: number; deltaY: number }

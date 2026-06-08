@@ -40,6 +40,8 @@ export class BrowserSession {
 
     if (message.type === "navigate") {
       await this.navigate(message.url);
+    } else if (message.type === "refresh") {
+      await this.client.Page.reload();
     } else if (message.type === "mouse") {
       await this.client.Input.dispatchMouseEvent({
         type: message.eventType,
