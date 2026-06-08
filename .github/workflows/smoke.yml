@@ -17,8 +17,8 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '20'
-      - run: npm ci
       - run: |
+          npm ci
           npm run start &
           printf 'Waiting for server to start...\n'
           for i in {1..20}; do
@@ -28,4 +28,4 @@ jobs:
             fi
             sleep 1
           done
-      - run: npm run smoke
+          npm run smoke
