@@ -19,6 +19,7 @@ jobs:
           node-version: '20'
       - run: |
           npm ci
+          npm run build
           npm run start &
           printf 'Waiting for server to start...\n'
           for i in {1..20}; do
