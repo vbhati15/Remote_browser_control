@@ -155,6 +155,7 @@ Frontend mouse and keyboard events are translated into CDP `Input.dispatchMouseE
 - **Tested flow:** `scripts/smoke.mjs` validates startup, navigation, screencast, and input.
 - **Documentation:** includes `CHANGELOG.md`, `DEVNOTES.md`, and `AUTHORS` for traceability.
 - **Real implementation:** not a stub — it runs a live browser session inside Docker and streams frames back to the browser.
+- **Contributors:** `vbhati15` is listed in `AUTHORS` for this project.
 
 ## Limitations
 
